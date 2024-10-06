@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_application_10/pet_data.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application_10/pages/game_screen.dart';
+import 'package:flutter_application_10/pages/about_screen.dart';
+import 'package:flutter_application_10/pages/shop_screen.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider<PetData>(
+      create: (context) => PetData(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-void noCallback() {}
-
-// App idea: Tamagotchi Clone
-
-class MyApp extends StatelessWidget {
+class MyApp extends HookWidget {
   const MyApp({super.key});
 
   @override
@@ -19,18 +24,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/game-screen',
       routes: {
-        '/game-screen': (context) => CenterWidget(child: const FirstScreen()),
-        '/shop-screen': (context) => CenterWidget(child: const ShopScreen()),
-        '/setting-screen': (context) =>
-            CenterWidget(child: const SettingScreen()),
+        '/game-screen': (context) =>
+            const CenterWidget(child: const GameScreen()),
+        '/shop-screen': (context) =>
+            const CenterWidget(child: const ShopScreen()),
+        '/about-screen': (context) =>
+            const CenterWidget(child: const AboutScreen()),
       },
     );
   }
 }
 
 class CenterWidget extends StatelessWidget {
-  Widget child;
-  CenterWidget({super.key, required this.child});
+  final Widget child;
+  const CenterWidget({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +45,7 @@ class CenterWidget extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Virtual Pet'),
+        centerTitle: true,
       ),
       body: SizedBox(
         width: double.infinity,
@@ -46,7 +54,7 @@ class CenterWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             child,
-            NavBar(),
+            const NavBar(),
           ],
         ),
       ),
@@ -62,115 +70,53 @@ class NavBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButton(
-          onPressed: () => Navigator.pushNamed(context, '/game-screen'),
-          icon: const Icon(Icons.gamepad),
-          iconSize: 50,
+        Column(
+          children: [
+            IconButton(
+              onPressed: navigate(context: context, route: '/game-screen'),
+              icon: const Icon(Icons.pets_rounded),
+              iconSize: 40,
+            ),
+            const Text(
+              'Pet',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-        IconButton(
-          onPressed: () => Navigator.pushNamed(context, '/shop-screen'),
-          icon: const Icon(Icons.shop),
-          iconSize: 50,
+        Column(
+          children: [
+            IconButton(
+              onPressed: navigate(context: context, route: '/shop-screen'),
+              icon: const Icon(Icons.shop_rounded),
+              iconSize: 40,
+            ),
+            const Text(
+              'Shop',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-        IconButton(
-          onPressed: () => Navigator.pushNamed(context, '/setting-screen'),
-          icon: const Icon(Icons.settings),
-          iconSize: 50,
+        Column(
+          children: [
+            IconButton(
+              onPressed: navigate(context: context, route: '/about-screen'),
+              icon: const Icon(Icons.info_outline_rounded),
+              iconSize: 40,
+            ),
+            const Text(
+              'About',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ],
     );
   }
 }
 
-Function navigate(BuildContext context, String route) {
+void Function() navigate(
+    {required BuildContext context, required String route}) {
   return () {
     Navigator.pushNamed(context, route);
   };
-}
-
-class FirstScreen extends HookWidget {
-  const FirstScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final food = useState(10);
-    final fun = useState(10);
-    final energy = useState(10);
-    return Column(
-      children: [
-        Column(
-          children: [
-            Text('Food: ${food.value}'),
-            Text('Fun: ${fun.value}'),
-            Text('Energy: ${energy.value}'),
-          ],
-        ),
-        Container(
-          width: 200,
-          height: 200,
-          color: Colors.red,
-          margin: const EdgeInsets.all(10),
-          child: const Align(
-            alignment: Alignment.center,
-            child: Text('Me is Pet'),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.all(5),
-              child: ElevatedButton(
-                onPressed: () {
-                  food.value += 3;
-                  energy.value += 1;
-                },
-                child: const Text("Feed"),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(5),
-              child: ElevatedButton(
-                onPressed: () {
-                  fun.value += 3;
-                  energy.value -= 2;
-                  food.value -= 2;
-                },
-                child: const Text("Play"),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(5),
-              child: ElevatedButton(
-                onPressed: () {
-                  energy.value += 3;
-                  food.value -= 1;
-                  fun.value -= 2;
-                },
-                child: const Text("Rest"),
-              ),
-            ),
-          ],
-        )
-      ],
-    );
-  }
-}
-
-class ShopScreen extends StatelessWidget {
-  const ShopScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('Shop');
-  }
-}
-
-class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('Settings');
-  }
 }
