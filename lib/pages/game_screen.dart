@@ -21,41 +21,80 @@ class GameScreen extends HookWidget {
       }
     }
 
+    Widget petAction(
+        {required IconData icon,
+        required String actionText,
+        required Function callback}) {
+      return Container(
+        margin: const EdgeInsets.all(5),
+        child: ElevatedButton.icon(
+          onPressed: () {
+            callback();
+            checkStat();
+          },
+          icon: Icon(icon),
+          label: Text(actionText),
+        ),
+      );
+    }
+
+    Widget iconStat({
+      required IconData icon,
+      required int data,
+    }) {
+      return Container(
+        margin: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: data > 25 ? const Color(0xFF4CAF50) : Colors.red,
+            ),
+            Text(
+              "$data",
+              style: TextStyle(
+                color: data > 25 ? const Color(0xFF4CAF50) : Colors.red,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Column(
       children: [
         Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.apple_rounded),
-                      Text("${petData.food}"),
-                    ],
-                  ),
+            IntrinsicWidth(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 8.0,
+                        offset: Offset(0, 4),
+                      ),
+                    ]),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    iconStat(
+                      icon: Icons.apple_rounded,
+                      data: petData.food,
+                    ),
+                    iconStat(
+                      icon: Icons.add_reaction_rounded,
+                      data: petData.fun,
+                    ),
+                    iconStat(
+                      icon: Icons.flash_on_rounded,
+                      data: petData.energy,
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.add_reaction_rounded),
-                      Text("${petData.fun}"),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.flash_on_rounded),
-                      Text("${petData.energy}"),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),
@@ -68,38 +107,20 @@ class GameScreen extends HookWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              margin: const EdgeInsets.all(5),
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  petData.feed();
-                  checkStat();
-                },
-                icon: const Icon(Icons.apple_rounded),
-                label: const Text("Feed"),
-              ),
+            petAction(
+              icon: Icons.apple_rounded,
+              actionText: "Feed",
+              callback: petData.feed,
             ),
-            Container(
-              margin: const EdgeInsets.all(5),
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  petData.play();
-                  checkStat();
-                },
-                icon: const Icon(Icons.add_reaction_rounded),
-                label: const Text("Play"),
-              ),
+            petAction(
+              icon: Icons.apple_rounded,
+              actionText: "Play",
+              callback: petData.play,
             ),
-            Container(
-              margin: const EdgeInsets.all(5),
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  petData.rest();
-                  checkStat();
-                },
-                icon: const Icon(Icons.flash_on_rounded),
-                label: const Text('Rest'),
-              ),
+            petAction(
+              icon: Icons.apple_rounded,
+              actionText: "Rest",
+              callback: petData.rest,
             ),
           ],
         )

@@ -23,13 +23,23 @@ class MyApp extends HookWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/game-screen',
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFFD3EED8),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: const Color(0xFF4CAF50),
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF4CAF50),
+          titleTextStyle: TextStyle(color: Colors.white),
+        ),
+      ),
       routes: {
-        '/game-screen': (context) =>
-            const CenterWidget(child: const GameScreen()),
-        '/shop-screen': (context) =>
-            const CenterWidget(child: const ShopScreen()),
-        '/about-screen': (context) =>
-            const CenterWidget(child: const AboutScreen()),
+        '/game-screen': (context) => const CenterWidget(child: GameScreen()),
+        '/shop-screen': (context) => const CenterWidget(child: ShopScreen()),
+        '/about-screen': (context) => const CenterWidget(child: AboutScreen()),
       },
     );
   }
@@ -44,7 +54,13 @@ class CenterWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Virtual Pet'),
+        title: const Text(
+          'Smiley Slimey',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
       ),
       body: SizedBox(
