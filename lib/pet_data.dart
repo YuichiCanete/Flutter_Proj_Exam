@@ -5,10 +5,14 @@ class PetData extends ChangeNotifier {
   int food;
   int energy;
 
-  PetData({this.fun = 75, this.food = 75, this.energy = 75});
+  PetData({
+    this.fun = 50,
+    this.food = 50,
+    this.energy = 50,
+  });
 
   void feed() {
-    if ((energy - 3) > 0){
+    if ((energy - 3) > 0) {
       food += 5;
       energy -= 3;
       notifyListeners();
@@ -16,18 +20,16 @@ class PetData extends ChangeNotifier {
   }
 
   void play() {
-    if ((energy - 3) > 0 && (food - 3) > 0) {
+    if ((energy - 3) > 0) {
       fun += 5;
       energy -= 3;
-      food -= 3;
       notifyListeners();
     }
   }
 
   void rest() {
-    if ((food - 3) > 0 && (fun - 3) > 0){
+    if ((fun - 3) > 0) {
       energy += 5;
-      food -= 3;
       fun -= 3;
       notifyListeners();
     }

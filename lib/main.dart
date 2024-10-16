@@ -81,58 +81,51 @@ class CenterWidget extends StatelessWidget {
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
 
+  Widget nav({
+    required BuildContext context,
+    required String route,
+    required IconData icon,
+    required String text,
+  }) {
+    return Column(
+      children: [
+        IconButton(
+          onPressed: () => Navigator.pushNamed(context, route),
+          icon: Icon(icon),
+          iconSize: 40,
+        ),
+        Text(
+          text,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Column(
-          children: [
-            IconButton(
-              onPressed: navigate(context: context, route: '/game-screen'),
-              icon: const Icon(Icons.pets_rounded),
-              iconSize: 40,
-            ),
-            const Text(
-              'Pet',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ],
+        nav(
+          context: context,
+          route: '/game-screen',
+          icon: Icons.pets_rounded,
+          text: 'Pet',
         ),
-        Column(
-          children: [
-            IconButton(
-              onPressed: navigate(context: context, route: '/shop-screen'),
-              icon: const Icon(Icons.shop_rounded),
-              iconSize: 40,
-            ),
-            const Text(
-              'Shop',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ],
+        nav(
+          context: context,
+          route: '/shop-screen',
+          icon: Icons.shop_rounded,
+          text: 'Shop',
         ),
-        Column(
-          children: [
-            IconButton(
-              onPressed: navigate(context: context, route: '/about-screen'),
-              icon: const Icon(Icons.info_outline_rounded),
-              iconSize: 40,
-            ),
-            const Text(
-              'About',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ],
+        nav(
+          context: context,
+          route: '/about-screen',
+          icon: Icons.info_outline_rounded,
+          text: 'About',
         ),
       ],
     );
   }
-}
-
-void Function() navigate(
-    {required BuildContext context, required String route}) {
-  return () {
-    Navigator.pushNamed(context, route);
-  };
 }

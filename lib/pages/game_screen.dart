@@ -21,10 +21,11 @@ class GameScreen extends HookWidget {
       }
     }
 
-    Widget petAction(
-        {required IconData icon,
-        required String actionText,
-        required Function callback}) {
+    Widget petAction({
+      required IconData icon,
+      required String actionText,
+      required Function callback,
+    }) {
       return Container(
         margin: const EdgeInsets.all(5),
         child: ElevatedButton.icon(
