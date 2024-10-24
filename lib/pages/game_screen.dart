@@ -69,15 +69,16 @@ class GameScreen extends HookWidget {
             IntrinsicWidth(
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 8.0,
-                        offset: Offset(0, 4),
-                      ),
-                    ]),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 8.0,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -92,6 +93,10 @@ class GameScreen extends HookWidget {
                     iconStat(
                       icon: Icons.flash_on_rounded,
                       data: petData.energy,
+                    ),
+                    iconStat(
+                      icon: Icons.attach_money_rounded,
+                      data: petData.money,
                     ),
                   ],
                 ),
@@ -114,12 +119,12 @@ class GameScreen extends HookWidget {
               callback: petData.feed,
             ),
             petAction(
-              icon: Icons.apple_rounded,
+              icon: Icons.add_reaction_rounded,
               actionText: "Play",
               callback: petData.play,
             ),
             petAction(
-              icon: Icons.apple_rounded,
+              icon: Icons.flash_on_rounded,
               actionText: "Rest",
               callback: petData.rest,
             ),
