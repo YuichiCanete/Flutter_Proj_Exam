@@ -22,10 +22,10 @@ class ShopScreen extends HookWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2), // Shadow color
-            blurRadius: 10, // Softness of the shadow
-            spreadRadius: 2, // Spread of the shadow
-            offset: const Offset(0, 4), // Position of the shadow
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
           ),
         ],
       ),

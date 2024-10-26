@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_application_10/pages/game_screen.dart';
 import 'package:flutter_application_10/pages/about_screen.dart';
 import 'package:flutter_application_10/pages/shop_screen.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 void main() {
   runApp(
@@ -15,7 +14,7 @@ void main() {
   );
 }
 
-class MyApp extends HookWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
