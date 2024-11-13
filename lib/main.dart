@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/game-screen',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFD3EED8),
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -35,6 +34,7 @@ class MyApp extends StatelessWidget {
           titleTextStyle: TextStyle(color: Colors.white),
         ),
       ),
+      initialRoute: '/game-screen',
       routes: {
         '/game-screen': (context) => const CenterWidget(child: GameScreen()),
         '/shop-screen': (context) => const CenterWidget(child: ShopScreen()),

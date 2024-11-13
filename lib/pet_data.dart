@@ -53,30 +53,32 @@ class PetData extends ChangeNotifier {
     };
   }
 
-  void feed() {
-    if ((fun - 3) > 0) {
-      food += addFood;
-      fun -= 3;
-      money += addMoney;
+  Function action({required String toAct}){
+    return () {
+      switch (toAct) {
+        case "Feed":
+          if ((fun - 3) > 0) {
+            food += addFood;
+            fun -= 3;
+            money += addMoney;
+          }
+          break;
+        case "Play":
+          if ((energy - 3) > 0) {
+            fun += addFun;
+            energy -= 3;
+            money += addMoney;
+          }
+          break;
+        case "Rest":
+          if ((food - 3) > 0) {
+            energy += addEnergy;
+            food -= 3;
+            money += addMoney;
+          }
+          break;
+      }
       notifyListeners();
-    }
-  }
-
-  void play() {
-    if ((energy - 3) > 0) {
-      fun += addFun;
-      energy -= 3;
-      money += addMoney;
-      notifyListeners();
-    }
-  }
-
-  void rest() {
-    if ((food - 3) > 0) {
-      energy += addEnergy;
-      food -= 3;
-      money += addMoney;
-      notifyListeners();
-    }
+    };
   }
 }

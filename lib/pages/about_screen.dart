@@ -13,7 +13,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextBuilder aboutDetails = TextBuilder()
-      ..addText(text: 'About Smilet Slimey', textStyle: titleText,)
+      ..addText(text: 'About Smiley Slimey', textStyle: titleText,)
       ..addSpace(10)
       ..addText(text: 'Smiley Slimey is a virtual pet game where you take care of a cute slime creature.')
       ..addText(text: 'Your goal is to keep your slime happy and healthy by managing its fun, food, and energy levels.')

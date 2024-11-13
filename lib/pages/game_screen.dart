@@ -116,17 +116,17 @@ class GameScreen extends HookWidget {
             petAction(
               icon: Icons.apple_rounded,
               actionText: "Feed",
-              callback: petData.feed,
+              callback: petData.action(toAct: "Feed"),
             ),
             petAction(
               icon: Icons.add_reaction_rounded,
               actionText: "Play",
-              callback: petData.play,
+              callback: petData.action(toAct: "Play"),
             ),
             petAction(
               icon: Icons.flash_on_rounded,
               actionText: "Rest",
-              callback: petData.rest,
+              callback: petData.action(toAct: "Rest"),
             ),
           ],
         )
