@@ -64,65 +64,56 @@ class CenterWidget extends StatelessWidget {
       ),
       body: SizedBox(
         width: double.infinity,
+        height: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             child,
-            const NavBar(),
           ],
         ),
       ),
+      bottomNavigationBar: const BottomNavBar(), // Use BottomNavBar here
     );
   }
 }
 
-class NavBar extends StatelessWidget {
-  const NavBar({super.key});
-
-  Widget nav({
-    required BuildContext context,
-    required String route,
-    required IconData icon,
-    required String text,
-  }) {
-    return Column(
-      children: [
-        IconButton(
-          onPressed: () => Navigator.pushNamed(context, route),
-          icon: Icon(icon),
-          iconSize: 40,
-        ),
-        Text(
-          text,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-  }
+class BottomNavBar extends StatelessWidget {
+  const BottomNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        nav(
-          context: context,
-          route: '/game-screen',
-          icon: Icons.pets_rounded,
-          text: 'Pet',
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: const Color(0xFF4CAF50), // Color for selected item
+      unselectedItemColor: const Color(0xFF4CAF50), // Color for unselected items
+      currentIndex: 0, // Set the initial index of the active item
+      onTap: (index) {
+        // Navigate to corresponding route when an item is tapped
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, '/game-screen');
+            break;
+          case 1:
+            Navigator.pushNamed(context, '/shop-screen');
+            break;
+          case 2:
+            Navigator.pushNamed(context, '/about-screen');
+            break;
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.pets_rounded),
+          label: 'Pet',
         ),
-        nav(
-          context: context,
-          route: '/shop-screen',
-          icon: Icons.shop_rounded,
-          text: 'Shop',
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shop_rounded),
+          label: 'Shop',
         ),
-        nav(
-          context: context,
-          route: '/about-screen',
-          icon: Icons.info_outline_rounded,
-          text: 'About',
+        BottomNavigationBarItem(
+          icon: Icon(Icons.info_outline_rounded),
+          label: 'About',
         ),
       ],
     );
