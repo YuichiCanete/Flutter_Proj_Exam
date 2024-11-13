@@ -14,9 +14,9 @@ class ShopScreen extends HookWidget {
     required callback,
   }) {
     return Container(
-      width: 175,
-      height: 175,
-      margin: const EdgeInsets.all(10),
+      width: 250,
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -32,46 +32,32 @@ class ShopScreen extends HookWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Icon(
+            icon,
+            size: 40,
+            color: const Color(0xFF4CAF50),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.all(5),
-                child: Icon(
-                  icon,
-                  color: const Color(0xFF4CAF50),
+                margin: const EdgeInsets.all(3),
+                child: Text(
+                  '$title -\$$cost',
+                  style: const TextStyle(
+                    color: Color(0xFF4CAF50),
+                  ),
                 ),
-              ),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Color(0xFF4CAF50),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                  Icons.attach_money_rounded,
-                  color: Color(0xFF4CAF50),
-              ),
-              Text(
-                "$cost",
-                style: const TextStyle(color: Color(0xFF4CAF50)),
-              ),
-            ],
-          ),
-          Text(
-            description,
-            style: const TextStyle(color: Color(0xFF4CAF50)),
-          ),
-          ElevatedButton.icon(
-            onPressed: callback,
-            label: const Text('Upgrade'),
-            icon: const Icon(Icons.arrow_upward_rounded),
+          Container(
+            margin: const EdgeInsets.all(5),
+            child: ElevatedButton.icon(
+              onPressed: callback,
+              label: Text(description),
+              icon: const Icon(Icons.arrow_upward_rounded),
+            ),
           )
         ],
       ),
@@ -104,52 +90,43 @@ class ShopScreen extends HookWidget {
                 ),
               ],
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.attach_money_rounded,
-                  color: Color(0xFF4CAF50),
-                ),
-                Text(
-                  "${petData.money}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF4CAF50),
-                  ),
-                ),
-              ],
+            child: Text(
+              "\$${petData.money}",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF4CAF50),
+              ),
             ),
           ),
         ),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             newUpgrade(
               title: 'More Apples',
               icon: Icons.apple,
-              description: '+ Food when eating',
+              description: 'Upgrade Food',
               cost: petData.costFood,
               callback: petData.upgrade(toUpgrade: 'Food'),
             ),
             newUpgrade(
               title: 'Softer Bed',
               icon: Icons.airline_seat_individual_suite_rounded,
-              description: '+ Energy when resting',
+              description: 'Upgrade Rest',
               cost: petData.costEnergy,
               callback: petData.upgrade(toUpgrade: 'Energy'),
             ),
             newUpgrade(
               title: 'Gaming Chair',
               icon: Icons.chair_rounded,
-              description: '+ Fun when playing',
+              description: 'Upgrade Play',
               cost: petData.costFun,
               callback: petData.upgrade(toUpgrade: 'Fun'),
             ),
             newUpgrade(
               title: 'MMMoney',
               icon: Icons.attach_money_rounded,
-              description: '+ More money',
+              description: 'Upgrade Money',
               cost: petData.costMoney,
               callback: petData.upgrade(toUpgrade: 'Money'),
             ),
