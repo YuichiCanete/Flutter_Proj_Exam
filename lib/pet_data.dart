@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PetData extends ChangeNotifier {
+  String petName = 'Slimey';
   int fun = 50;
   int food = 50;
   int energy = 50;
@@ -16,6 +17,11 @@ class PetData extends ChangeNotifier {
   int costFun = 15;
   int costEnergy = 15;
   int costFood = 15;
+
+  void setPetName(String newName) {
+    petName = newName;
+    notifyListeners();
+  }
 
   Function upgrade({required String toUpgrade}) {
     return () {
@@ -53,32 +59,36 @@ class PetData extends ChangeNotifier {
     };
   }
 
-  Function action({required String toAct}){
-    return () {
-      switch (toAct) {
-        case "Feed":
-          if ((fun - 3) > 0) {
-            food += addFood;
-            fun -= 3;
-            money += addMoney;
-          }
-          break;
-        case "Play":
-          if ((energy - 3) > 0) {
-            fun += addFun;
-            energy -= 3;
-            money += addMoney;
-          }
-          break;
-        case "Rest":
-          if ((food - 3) > 0) {
-            energy += addEnergy;
-            food -= 3;
-            money += addMoney;
-          }
-          break;
-      }
-      notifyListeners();
-    };
+  bool action({required String toAct}) {
+    bool changed = false;
+    switch (toAct) {
+      case "Feed":
+        if ((fun - 3) > 0) {
+          food += addFood;
+          fun -= 3;
+          money += addMoney;
+          changed = true;
+        }
+        break;
+      case "Play":
+        if ((energy - 3) > 0) {
+          fun += addFun;
+          energy -= 3;
+          money += addMoney;
+          changed = true;
+        }
+        break;
+      case "Rest":
+        if ((food - 3) > 0) {
+          energy += addEnergy;
+          food -= 3;
+          money += addMoney;
+          changed = true;
+        }
+        break;
+    }
+    notifyListeners();
+    return changed;
   }
 }
+

@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const smallText = TextStyle(
   fontSize: 16,
@@ -10,13 +12,18 @@ const titleText = TextStyle(
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     TextBuilder aboutDetails = TextBuilder()
-      ..addText(text: 'About Smiley Slimey', textStyle: titleText,)
+      ..addText(text: 'About Smiley Slimey', textStyle: titleText)
       ..addSpace(10)
-      ..addText(text: 'Smiley Slimey is a virtual pet game where you take care of a cute slime creature.')
-      ..addText(text: 'Your goal is to keep your slime happy and healthy by managing its fun, food, and energy levels.')
+      ..addText(
+          text:
+              'Smiley Slimey is a virtual pet game where you take care of a cute slime creature.')
+      ..addText(
+          text:
+              'Your goal is to keep your slime happy and healthy by managing its fun, food, and energy levels.')
       ..addSpace(20)
       ..addText(text: 'Features', textStyle: titleText)
       ..addSpace(10)
@@ -26,7 +33,11 @@ class AboutScreen extends StatelessWidget {
       ..addText(text: '- Buy upgrades in the shop')
       ..addSpace(20)
       ..addText(text: 'Developed by: Yuichi Cañete')
-    ;
+      ..addSpace(20)
+      ..addText(text: 'Follow Me:')
+      ..addSpace(10)
+      ..addSocialLinks();
+
     return Column(children: aboutDetails.build());
   }
 }
@@ -48,7 +59,58 @@ class TextBuilder {
     ));
   }
 
-  List<Widget> build(){
+  void addSocialLinks() {
+    widgets.add(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildSocialIcon(
+              'assets/images/github.png', 'https://github.com/YuichiCanete'),
+          _buildSocialIcon('assets/images/fb.png',
+              'https://www.facebook.com/yuichi.canete/'),
+          _buildSocialIcon(
+              'assets/images/itchio.png', 'https://bruhderboi.itch.io/'),
+          _buildSocialIcon(
+              'assets/images/tiktok.png', 'https://www.tiktok.com/@bruh.der'),
+          _buildSocialIcon('assets/images/youtube.png',
+              'https://www.youtube.com/@bruhder1572'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialIcon(String assetPath, String url) {
+    return GestureDetector(
+      onTap: () async {
+        final Uri uri = Uri.parse(url);
+        try {
+          // Check if the URL can be launched
+          if (await canLaunchUrl(uri)) {
+            // Launch the URL if it can be handled
+            await launchUrl(uri);
+          } else {
+            // If the URL can't be launched, show an error message
+            throw 'Could not launch $url';
+          }
+        } catch (e) {
+          // Handle any errors (such as permission issues or unavailable apps)
+          if (kDebugMode) {
+            print('Error: $e');
+          }
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image.asset(
+          assetPath,
+          width: 40,
+          height: 40,
+        ),
+      ),
+    );
+  }
+
+  List<Widget> build() {
     return widgets;
   }
 }

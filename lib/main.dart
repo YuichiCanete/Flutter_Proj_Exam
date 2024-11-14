@@ -85,8 +85,9 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: const Color(0xFF4CAF50), // Color for selected item
-      unselectedItemColor: const Color(0xFF4CAF50), // Color for unselected items
+      backgroundColor: const Color(0xFF4CAF50),
+      selectedItemColor: const Color.fromARGB(255, 255, 255, 255), // Color for selected item
+      unselectedItemColor: const Color.fromARGB(255, 255, 255, 255), // Color for unselected items
       currentIndex: 0, // Set the initial index of the active item
       onTap: (index) {
         // Navigate to corresponding route when an item is tapped
