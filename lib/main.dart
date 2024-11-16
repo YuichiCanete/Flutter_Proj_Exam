@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/pages/gift_screen.dart';
 import 'package:flutter_application_10/pet_data.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_10/pages/game_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/game-screen',
       routes: {
         '/game-screen': (context) => const CenterWidget(child: GameScreen()),
+        '/gift-screen': (context) => const CenterWidget(child: GiftScreen()),
         '/shop-screen': (context) => const CenterWidget(child: ShopScreen()),
         '/about-screen': (context) => const CenterWidget(child: AboutScreen()),
       },
@@ -73,7 +75,7 @@ class CenterWidget extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(), // Use BottomNavBar here
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
@@ -86,11 +88,10 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: const Color(0xFF4CAF50),
-      selectedItemColor: const Color.fromARGB(255, 255, 255, 255), // Color for selected item
-      unselectedItemColor: const Color.fromARGB(255, 255, 255, 255), // Color for unselected items
-      currentIndex: 0, // Set the initial index of the active item
+      selectedItemColor: const Color.fromARGB(255, 255, 255, 255),
+      unselectedItemColor: const Color.fromARGB(255, 255, 255, 255),
+      currentIndex: 0,
       onTap: (index) {
-        // Navigate to corresponding route when an item is tapped
         switch (index) {
           case 0:
             Navigator.pushNamed(context, '/game-screen');
@@ -99,6 +100,9 @@ class BottomNavBar extends StatelessWidget {
             Navigator.pushNamed(context, '/shop-screen');
             break;
           case 2:
+            Navigator.pushNamed(context, '/gift-screen');
+            break;
+          case 3:
             Navigator.pushNamed(context, '/about-screen');
             break;
         }
@@ -113,9 +117,14 @@ class BottomNavBar extends StatelessWidget {
           label: 'Shop',
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.wallet_giftcard_rounded),
+          label: 'Gift',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.info_outline_rounded),
           label: 'About',
         ),
+        
       ],
     );
   }

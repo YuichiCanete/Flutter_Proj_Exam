@@ -18,11 +18,45 @@ class PetData extends ChangeNotifier {
   int costEnergy = 15;
   int costFood = 15;
 
+  // For checking which gift is claimed
+  final Map<String, bool> giftsClaimed = {
+    'Red Gift': false,
+    'Blue Gift': false,
+    'Orange Gift': false,
+    'Green Gift': false,
+  };
+
+  //Claim Gift
+  void claimGift(String giftName, String giftType, int amount) {
+    if (giftsClaimed.containsKey(giftName) && !giftsClaimed[giftName]!) {
+      giftsClaimed[giftName] = true;
+      switch (giftType) {
+        case 'Food':
+          food += amount;
+          break;
+        case 'Fun':
+          fun += amount;
+          break;
+        case 'Energy':
+          energy += amount;
+          break;
+        case 'Money':
+          energy += amount;
+          break;
+        default:
+          break;
+      }
+      notifyListeners();
+    }
+  }
+
+  // Change Pet Name
   void setPetName(String newName) {
     petName = newName;
     notifyListeners();
   }
 
+  // Upgrade Pet stat
   Function upgrade({required String toUpgrade}) {
     return () {
       switch (toUpgrade) {
@@ -59,6 +93,7 @@ class PetData extends ChangeNotifier {
     };
   }
 
+  // Pet actions
   bool action({required String toAct}) {
     bool changed = false;
     switch (toAct) {
@@ -90,5 +125,6 @@ class PetData extends ChangeNotifier {
     notifyListeners();
     return changed;
   }
+  
 }
 

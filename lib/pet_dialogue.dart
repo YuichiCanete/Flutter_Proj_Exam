@@ -1,6 +1,8 @@
 import 'dart:math';
 
 class PetDialogue {
+
+  // Pet dialogues per action
   final List<String> feedDialogues = [
     "Yum! That was delicious!",
     "I'm full now, thanks!",
@@ -25,7 +27,7 @@ class PetDialogue {
     "That nap hit the spot!"
   ];
 
-  // Opposite dialogues when action cannot be performed
+  // Pet dialogues when cannot perform action
   final List<String> cannotFeedDialogues = [
     "I'm too full to eat more!",
     "No thanks, I can't eat another bite!",
@@ -47,7 +49,6 @@ class PetDialogue {
     "I'm ready for action, not sleep!"
   ];
 
-  // Method to fetch a random dialogue based on action type and availability
   String getRandomDialogue({required String action, required bool canPerform}) {
     final random = Random();
     if (canPerform) {

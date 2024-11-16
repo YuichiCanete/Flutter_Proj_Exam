@@ -5,18 +5,24 @@ import 'package:provider/provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class GameScreen extends HookWidget {
+
+  // Initialize assets
   final String happySlime = '../assets/images/slime_happy.png';
   final String sadSlime = '../assets/images/slime_sad.png';
+
   const GameScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    // Set initial data
     final petData = Provider.of<PetData>(context);
     final slimeSprite = useState(happySlime);
     final petDialogue = useState('Hello There!');
     final dialogueCol = useState(const Color(0xFF4CAF50));
     final dialogueClass = PetDialogue();
 
+    // Check stat to change pet emotion
     void checkStat() {
       if (petData.energy <= 25 || petData.food <= 25 || petData.fun <= 25) {
         slimeSprite.value = sadSlime;
@@ -25,6 +31,7 @@ class GameScreen extends HookWidget {
       }
     }
 
+    // Ask to change name
     void changePetName(BuildContext context) {
       final petNameController = TextEditingController(text: petData.petName);
       showDialog(
@@ -52,6 +59,7 @@ class GameScreen extends HookWidget {
       );
     }
 
+    // Action button for Feed, Play and Rest
     Widget petAction({
       required IconData icon,
       required String action,
@@ -65,8 +73,7 @@ class GameScreen extends HookWidget {
               action: action,
               canPerform: canPerform,
             );
-            dialogueCol.value =
-                canPerform ? const Color(0xFF4CAF50) : Colors.red;
+            dialogueCol.value = canPerform ? const Color(0xFF4CAF50) : Colors.red;
             checkStat();
           },
           icon: Icon(icon),
@@ -75,6 +82,7 @@ class GameScreen extends HookWidget {
       );
     }
 
+    // Show stats for food, energy, fun and money
     Widget iconStat({
       required IconData icon,
       required int data,
@@ -100,6 +108,7 @@ class GameScreen extends HookWidget {
 
     return Column(
       children: [
+        // Change pet name on click
         GestureDetector(
           onTap: () => changePetName(context),
           child: IntrinsicWidth(
@@ -120,10 +129,10 @@ class GameScreen extends HookWidget {
               child: Row(
                 children: [
                   const Icon(
-                    Icons.edit_rounded, // Pencil icon
-                    color: Color(0xFF4CAF50), // Green color
+                    Icons.edit_rounded,
+                    color: Color(0xFF4CAF50),
                   ),
-                  const SizedBox(width: 10), // Space between icon and text
+                  const SizedBox(width: 10),
                   Text(
                     petData.petName,
                     style: const TextStyle(
@@ -137,6 +146,8 @@ class GameScreen extends HookWidget {
             ),
           ),
         ),
+
+        // Stats Container
         Column(
           children: [
             IntrinsicWidth(
@@ -177,12 +188,16 @@ class GameScreen extends HookWidget {
             ),
           ],
         ),
+
+        // Pet image 
         Container(
           width: 200,
           height: 200,
           margin: const EdgeInsets.all(5),
           child: Image.asset(slimeSprite.value),
         ),
+
+        // Dialogue box
         Container(
           margin: const EdgeInsets.all(5),
           padding: const EdgeInsets.all(10),
@@ -204,6 +219,8 @@ class GameScreen extends HookWidget {
             ),
           ),
         ),
+
+        // Actions
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -221,6 +238,7 @@ class GameScreen extends HookWidget {
             ),
           ],
         )
+        
       ],
     );
   }

@@ -2,9 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// Text styles
 const smallText = TextStyle(
   fontSize: 16,
 );
+
 const titleText = TextStyle(
   fontSize: 32,
   fontWeight: FontWeight.bold,
@@ -15,15 +17,12 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Building text
     TextBuilder aboutDetails = TextBuilder()
       ..addText(text: 'About Smiley Slimey', textStyle: titleText)
       ..addSpace(10)
-      ..addText(
-          text:
-              'Smiley Slimey is a virtual pet game where you take care of a cute slime creature.')
-      ..addText(
-          text:
-              'Your goal is to keep your slime happy and healthy by managing its fun, food, and energy levels.')
+      ..addText(text: 'Smiley Slimey is a virtual pet game where you take care of a cute slime creature.')
+      ..addText(text: 'Your goal is to keep your slime happy and healthy by managing its fun, food, and energy levels.')
       ..addSpace(20)
       ..addText(text: 'Features', textStyle: titleText)
       ..addSpace(10)
@@ -42,6 +41,7 @@ class AboutScreen extends StatelessWidget {
   }
 }
 
+// Builder
 class TextBuilder {
   final List<Widget> widgets = [];
 
@@ -65,15 +65,25 @@ class TextBuilder {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildSocialIcon(
-              'assets/images/github.png', 'https://github.com/YuichiCanete'),
-          _buildSocialIcon('assets/images/fb.png',
-              'https://www.facebook.com/yuichi.canete/'),
+            'assets/images/github.png',
+            'https://github.com/YuichiCanete',
+          ),
           _buildSocialIcon(
-              'assets/images/itchio.png', 'https://bruhderboi.itch.io/'),
+            'assets/images/fb.png',
+            'https://www.facebook.com/yuichi.canete/',
+          ),
           _buildSocialIcon(
-              'assets/images/tiktok.png', 'https://www.tiktok.com/@bruh.der'),
-          _buildSocialIcon('assets/images/youtube.png',
-              'https://www.youtube.com/@bruhder1572'),
+            'assets/images/itchio.png',
+            'https://bruhderboi.itch.io/',
+          ),
+          _buildSocialIcon(
+            'assets/images/tiktok.png',
+            'https://www.tiktok.com/@bruh.der',
+          ),
+          _buildSocialIcon(
+            'assets/images/youtube.png',
+            'https://www.youtube.com/@bruhder1572',
+          ),
         ],
       ),
     );
@@ -84,16 +94,15 @@ class TextBuilder {
       onTap: () async {
         final Uri uri = Uri.parse(url);
         try {
-          // Check if the URL can be launched
           if (await canLaunchUrl(uri)) {
-            // Launch the URL if it can be handled
+            // Redirect
             await launchUrl(uri);
           } else {
-            // If the URL can't be launched, show an error message
+            // Cant redirect
             throw 'Could not launch $url';
           }
         } catch (e) {
-          // Handle any errors (such as permission issues or unavailable apps)
+          // Error
           if (kDebugMode) {
             print('Error: $e');
           }

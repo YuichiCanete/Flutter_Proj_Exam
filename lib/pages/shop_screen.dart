@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 class ShopScreen extends HookWidget {
   const ShopScreen({super.key});
 
+  // Upgrade
   Widget newUpgrade({
     required String title,
     required String description,
@@ -69,6 +70,7 @@ class ShopScreen extends HookWidget {
     final petData = Provider.of<PetData>(context);
     return Column(
       children: [
+        // Shop text
         const Text(
           'Shop',
           style: TextStyle(
@@ -76,6 +78,8 @@ class ShopScreen extends HookWidget {
             fontSize: 25,
           ),
         ),
+
+        // Display Money
         IntrinsicWidth(
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -99,6 +103,8 @@ class ShopScreen extends HookWidget {
             ),
           ),
         ),
+
+        // List of Upgrades
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -132,6 +138,7 @@ class ShopScreen extends HookWidget {
             ),
           ],
         ),
+        
       ],
     );
   }
